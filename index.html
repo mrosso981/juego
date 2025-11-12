@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corredor del Gorila - Gesture Runner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header" id="gameHeader" style="display: none;">
+            <h1>🏃 Corredor del Gorila 🦍</h1>
+            <div class="score-board">
+                <div class="score">Puntuación: <span id="score">0</span></div>
+                <div class="lives">Vidas: <span id="lives">3</span></div>
+            </div>
+        </div>
+
+        <div class="game-area" id="gameArea" style="display: none;">
+            <div id="camera-container" class="camera-container">
+                <video id="webcam" autoplay playsinline muted></video>
+                <div class="prediction-overlay">
+                    <div class="gesture-indicator" id="gesture-indicator">
+                        <span id="gesture-text">Iniciando cámara...</span>
+                    </div>
+                </div>
+            </div>
+            
+            <canvas id="gameCanvas"></canvas>
+        </div>
+
+        <div class="controls-info" id="controlsInfo" style="display: none;">
+            <div class="control-item">
+                <span class="gesture-icon">👈</span>
+                <span>Izquierda - Mover a la izquierda</span>
+            </div>
+            <div class="control-item">
+                <span class="gesture-icon">👉</span>
+                <span>Derecha - Mover a la derecha</span>
+            </div>
+            <div class="control-item">
+                <span class="gesture-icon">✋</span>
+                <span>Frente - Mantener recto</span>
+            </div>
+        </div>
+
+        <!-- Camera Test Screen -->
+        <div class="game-overlay" id="cameraTestScreen">
+            <div class="overlay-content camera-test-content">
+                <h2>🧪 Prueba de Cámara</h2>
+                <p>Verifica que tu cámara y gestos funcionen correctamente</p>
+                
+                <div class="camera-test-container">
+                    <div id="test-camera-container" class="test-camera-container">
+                        <div class="test-camera-placeholder">
+                            <p>Cargando cámara...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="test-info-panel">
+                        <h3>Detectando gestos:</h3>
+                        <div class="gesture-test-results">
+                            <div class="gesture-test-item">
+                                <span class="gesture-test-label">👈 Izquierda:</span>
+                                <span class="gesture-test-value" id="test-left">0%</span>
+                            </div>
+                            <div class="gesture-test-item">
+                                <span class="gesture-test-label">👉 Derecha:</span>
+                                <span class="gesture-test-value" id="test-right">0%</span>
+                            </div>
+                            <div class="gesture-test-item">
+                                <span class="gesture-test-label">✋ Frente:</span>
+                                <span class="gesture-test-value" id="test-front">0%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="test-status">
+                            <p id="test-status-text">Esperando detección...</p>
+                        </div>
+                        
+                        <div class="test-instructions">
+                            <h4>Instrucciones:</h4>
+                            <ul>
+                                <li>Muestra tu mano <strong>izquierda</strong> 👈</li>
+                                <li>Muestra tu mano <strong>derecha</strong> 👉</li>
+                                <li>Muestra tu mano al <strong>frente</strong> ✋</li>
+                                <li>Verifica que los porcentajes cambien correctamente</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="test-buttons">
+                    <button id="continueToGameBtn" class="start-btn" disabled>
+                        ✅ Continuar al Juego
+                    </button>
+                    <button id="retryTestBtn" class="start-btn secondary-btn" style="display: none;">
+                        🔄 Reintentar
+                    </button>
+                    <button id="skipTestBtn" class="start-btn secondary-btn" style="margin-top: 10px;">
+                        ⏭️ Saltar Prueba (Continuar de todos modos)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-overlay hidden" id="startScreen">
+            <div class="overlay-content">
+                <h2>¡Corredor del Gorila!</h2>
+                <p>Usa tus gestos para controlar al corredor</p>
+                <p>¡Escapa del gorila que te persigue!</p>
+                <button id="startBtn" class="start-btn">Comenzar Juego</button>
+            </div>
+        </div>
+
+        <div class="game-overlay hidden" id="gameOverScreen">
+            <div class="overlay-content">
+                <h2>¡Game Over!</h2>
+                <p>Puntuación Final: <span id="finalScore">0</span></p>
+                <button id="restartBtn" class="start-btn">Jugar de Nuevo</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/teachablemachine-image@latest/dist/teachablemachine-image.min.js"></script>
+    <script src="game.js"></script>
+    <script src="teachable-machine.js"></script>
+</body>
+</html>
+
